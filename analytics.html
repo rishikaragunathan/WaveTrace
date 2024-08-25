@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaveTrace - Analytics</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .dark-mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .analytics-section {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: navy;
+            margin: 0 0 10px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #ddd; /* Placeholder for charts */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .chart-container::before {
+            content: "Chart Placeholder";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: navy;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .content-container.dark-mode {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        header.dark-mode {
+            background-color: #222;
+        }
+
+        footer.dark-mode {
+            background-color: #222;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="wavetrace_white_logo-removebg-preview.png" alt="WaveTrace Logo" class="logo">
+            <h1 class="site-title">WaveTrace</h1>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+    </header>
+
+    <div class="content-container">
+        <div class="analytics-section">
+            <h2>Water Usage Statistics</h2>
+            <div class="chart-container">
+                <!-- Placeholder for water usage chart -->
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2>System Performance</h2>
+            <div class="chart-container">
+                <!-- Placeholder for system performance chart -->
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2>Recent Activities</h2>
+            <ul>
+                <li>Activity 1: Description of recent activity</li>
+                <li>Activity 2: Description of recent activity</li>
+                <li>Activity 3: Description of recent activity</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 WaveTrace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.content-container').classList.toggle('dark-mode');
+            document.querySelector('header').classList.toggle('dark-mode');
+            document.querySelector('footer').classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>

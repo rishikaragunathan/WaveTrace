@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaveTrace</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Griffiths', serif; /* Updated font-family */
+            background-color: #f4f4f4;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* First Page */
+        .first-page {
+            height: 100vh;
+            background: url('C:/Users/Chandra Kumari/Desktop/wavetracepage.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Enter Button */
+        #enter-button {
+            position: absolute;
+            bottom: 20px;
+            background-color: rgba(74, 144, 226, 1); /* 100% opacity */
+            color: #fff; /* 100% opacity */
+            border: none;
+            padding: 20px 40px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        #enter-button:hover {
+            transform: scale(1.2);
+        }
+
+        /* Floating Header */
+        .header-nav {
+            background-color: #0a1f38;
+            padding: 20px;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-nav .logo {
+            width: 120px;
+        }
+
+        .header-nav .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .header-nav .nav-links {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .header-nav .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: transform 0.3s, font-size 0.3s;
+        }
+
+        .header-nav .nav-links a:hover {
+            transform: scale(1.2);
+            font-size: 18px;
+        }
+
+        .header-nav .nav-links .dropdown {
+            position: relative;
+        }
+
+        .header-nav .nav-links .dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #4a90e2;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .header-nav .nav-links .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .header-nav .nav-links .dropdown .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .header-nav .nav-links .dropdown .dropdown-content a:hover {
+            background-color: #357abd;
+        }
+
+        .header-nav .search-bar {
+            margin-left: 20px;
+            display: flex;
+        }
+
+        .header-nav .search-bar input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .header-nav .search-bar button {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .header-nav .search-bar button:hover {
+            background-color: #357abd;
+        }
+
+        .header-nav .theme-toggle {
+            margin-left: 20px;
+        }
+
+        .header-nav .theme-toggle input {
+            cursor: pointer;
+        }
+
+        /* Content Section */
+        .scroll-content {
+            padding: 20px;
+            display: none;
+            padding-top: 80px;
+            background-color: #fff; /* White background for content section */
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding-top: 80px;
+        }
+
+        .section img {
+            max-width: 75%;
+            height: auto;
+            display: block;
+            margin: 20px auto; /* Centering image */
+        }
+
+        .img.comicstripwater {
+            width: 30%; /* Adjust the percentage as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-family: 'Griffiths', serif; /* Updated font for section titles */
+        }
+
+        .section-content {
+            font-family: 'Griffiths', serif; /* Updated font for section text */
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #0f2142;
+            color: #fff;
+        }
+
+        /* Light/Dark Mode Toggle */
+        .dark-mode {
+            background-color: #26292b; /* Dark mode background color */
+            color: #f4f4f4;
+        }
+
+        .dark-mode .header-nav {
+            background-color: #222;
+        }
+
+        .dark-mode footer {
+            background-color: #222;
+        }
+
+        .dark-mode .scroll-content {
+            background-color: #000; /* Black background in dark mode */
+            color: #f4f4f4; /* Light text color for readability */
+        }
+
+        .dark-mode .section-title {
+            color: #fff;
+        }
+
+        @media (min-width: 768px) {
+            .header-nav {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- First Page -->
+    <div class="first-page" id="first-page">
+        <button id="enter-button">Enter</button>
+    </div>
+
+    <!-- Content Section -->
+    <div class="scroll-content" id="content-section">
+        <!-- Floating Header -->
+        <div class="header-nav">
+            <img src="C:/Users/Chandra Kumari/Desktop/wavetrace_white_logo-removebg-preview.png" alt="WaveTrace Logo" class="logo">
+            <span class="logo-text">WaveTrace</span>
+            <div class="nav-links">
+                <a href="homepage.html" target="_blank">Homepage</a>
+                <div class="dropdown">
+                    <a href="#" target="_blank">Services</a>
+                    <div class="dropdown-content">
+                        <a href="leak detection.html" target="_blank">Leak Detection</a>
+                        <a href="analytics.html" target="_blank">Analytics</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="user profile.html" target="_blank">User Profile</a>
+                    <div class="dropdown-content">
+                        <a href="bills.html" target="_blank">Bills</a>
+                    </div>
+                </div>
+                <a href="notifications.html" target="_blank">Notifications</a>
+                <a href="contact us.html" target="_blank">Contact Us</a>
+                <a href="aboutus.html" target="_blank">About Us</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search...">
+                <button id="search-button">Search</button>
+            </div>
+            <div class="theme-toggle">
+                <label for="theme-toggle">Dark Mode:</label>
+                <input type="checkbox" id="theme-toggle">
+            </div>
+        </div>
+
+        <!-- Other Sections -->
+        <section class="section">
+            <div class="section-title">Introduction</div>
+            <p class="section-content">Welcome to WaveTrace, where innovation meets efficiency in water management. Our cutting-edge solutions are 
+                  designed to revolutionize how we detect and manage water leaks. Leveraging advanced AI technology and smart sensors, we provide a 
+                 comprehensive system that not only identifies leaks with pinpoint accuracy but also offers real-time monitoring and automated repair 
+                 solutions. Our mission is to enhance water quality, ensure a 24/7 supply, and implement our technology on a city-wide scale, transforming the way 
+                 communities manage their water resources. Join us in our journey to conserve water and build a sustainable future.</p>
+            <img src="C:/Users/Chandra Kumari/Desktop/comicstripwater.png" alt="Features Image" class="comicstripwater">
+        </section>
+        <section class="section">
+            <div class="section-title">Features</div>
+            <p class="section-content">Our system offers a range of powerful features:</p>
+            <ul class="section-content">
+                <li>Advanced Leak Detection: Using state-of-the-art AI, our system identifies even the smallest leaks in real-time.</li>
+                <li>Comprehensive Analytics: Get detailed reports and insights on water usage, leakage history, and system efficiency.</li>
+                <li>Automated Repairs: Our system not only detects leaks but also initiates repair protocols automatically to minimize water wastage.</li>
+            </ul>
+            <img src="C:/Users/Chandra Kumari/Desktop/wavetracevisual.png" alt="WaveTrace Features" class="comicstripwater">
+        </section>
+        <footer>
+            <p>&copy; 2024 WaveTrace. All rights reserved. <a href="termsandconditions.html" target="_blank">T&C 2024</a></p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('enter-button').addEventListener('click', function() {
+            document.querySelector('.first-page').style.display = 'none';
+            document.querySelector('.scroll-content').style.display = 'block';
+        });
+
+        document.getElementById('theme-toggle').addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode', this.checked);
+        });
+
+        document.getElementById('search-button').addEventListener('click', function() {
+            var query = document.getElementById('search-input').value;
+            alert('Searching for: ' + query);
+            // Implement actual search functionality here
+        });
+    </script>
+</body>
+</html>

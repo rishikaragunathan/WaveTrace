@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaveTrace - Notifications</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .dark-mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .notifications-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 26px;
+            color: navy;
+            margin-bottom: 20px;
+        }
+
+        .notification {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .notification-content {
+            font-size: 16px;
+            color: #333;
+            flex: 1;
+        }
+
+        .notification-button {
+            background-color: navy;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .notification-button:hover {
+            background-color: darkblue;
+            transform: scale(1.1);
+        }
+
+        .notification-button.dismiss {
+            background-color: red;
+        }
+
+        .notification-button.dismiss:hover {
+            background-color: darkred;
+        }
+
+        .dismiss-icon {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: red;
+        }
+
+        footer {
+            background-color: navy;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .notifications-container.dark-mode {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        header.dark-mode {
+            background-color: #222;
+        }
+
+        footer.dark-mode {
+            background-color: #222;
+        }
+
+        .dark-mode h2 {
+            color: lightblue;
+        }
+
+        .dark-mode .notification {
+            background-color: #555;
+            border: 1px solid #666;
+        }
+
+        .dark-mode .notification-content {
+            color: #ddd;
+        }
+
+        .dark-mode .notification-button {
+            background-color: darkblue;
+        }
+
+        .dark-mode .notification-button.dismiss {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="wavetrace_logo.png" alt="WaveTrace Logo" class="logo">
+            <h1 class="site-title">WaveTrace</h1>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+    </header>
+
+    <div class="notifications-container" id="notificationsContainer">
+        <h2>Notifications</h2>
+        <!-- Initial notifications will be injected here by JavaScript -->
+    </div>
+
+    <footer>
+        <p>&copy; 2024 WaveTrace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.notifications-container').classList.toggle('dark-mode');
+            document.querySelector('header').classList.toggle('dark-mode');
+            document.querySelector('footer').classList.toggle('dark-mode');
+        }
+
+        function createNotification(message, type) {
+            const container = document.getElementById('notificationsContainer');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            const content = document.createElement('div');
+            content.className = 'notification-content';
+            content.innerHTML = `<strong>${type}:</strong> ${message}`;
+
+            const button = document.createElement('button');
+            button.className = `notification-button ${type === 'Alert' ? 'dismiss' : ''}`;
+            button.textContent = type === 'Alert' ? 'Dismiss' : (type === 'Reminder' ? 'View Report' : 'Acknowledge');
+            button.onclick = () => handleButtonClick(button, type);
+
+            const closeIcon = document.createElement('span');
+            closeIcon.className = 'dismiss-icon';
+            closeIcon.innerHTML = '&times;'; // Unicode for cross mark
+            closeIcon.onclick = () => handleDismissNotification(notification);
+
+            notification.appendChild(content);
+            notification.appendChild(button);
+            if (type === 'Reminder') {
+                notification.appendChild(closeIcon);
+            }
+            container.appendChild(notification);
+        }
+
+        function handleButtonClick(button, type) {
+            if (type === 'Alert') {
+                button.parentElement.style.display = 'none'; // Hide the notification
+                alert("Notification dismissed.");
+                // Simulate sending a new notification
+                createNotification('This is a new notification after dismissing one.', 'Update');
+            } else if (type === 'Reminder') {
+                alert("Viewing report...");
+            } else if (type === 'Update') {
+                alert("Update acknowledged.");
+            }
+        }
+
+        function handleDismissNotification(notification) {
+            notification.style.display = 'none'; // Hide the notification
+            alert("Reminder dismissed.");
+            // Optionally: Simulate sending a new reminder or notification
+        }
+
+        // Initialize with some notifications
+        createNotification('Water pressure has dropped below the threshold. Please check the system.', 'Alert');
+        createNotification('Your monthly water usage report is now available.', 'Reminder');
+        createNotification('The system has been successfully updated to the latest version.', 'Update');
+    </script>
+</body>
+</html>

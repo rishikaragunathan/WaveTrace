@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaveTrace - Leak Detection</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .dark-mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #ddd; /* Placeholder for map */
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .map-container::before {
+            content: "Map of Pipeline System";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .history-container, .leak-status-container, .sensor-activity-container {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: navy;
+            margin: 0 0 10px;
+        }
+
+        .history-container p, .leak-status-container p, .sensor-activity-container p {
+            font-size: 16px;
+            color: #555;
+            margin: 0;
+        }
+
+        .sensor-activity-container .blinking-light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: red;
+            animation: blink 1s infinite;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .volume-meter {
+            width: 100%;
+            height: 40px;
+            background: #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .volume-indicator {
+            height: 100%;
+            background: linear-gradient(to right, #00f260, #0575e6);
+            width: 0%;
+            transition: width 0.5s;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        footer {
+            background-color: navy;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .content-container.dark-mode {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        header.dark-mode {
+            background-color: #222;
+        }
+
+        footer.dark-mode {
+            background-color: #222;
+        }
+
+        /* Dark mode specific styles */
+        .dark-mode .blinking-light {
+            background-color: #ff0000;
+        }
+
+        /* Dark mode additional styles */
+        .dark-mode .history-container h2,
+        .dark-mode .leak-status-container h2,
+        .dark-mode .sensor-activity-container h2 {
+            color: #add8e6; /* Light blue for headings */
+        }
+
+        .dark-mode .history-container p,
+        .dark-mode .leak-status-container p,
+        .dark-mode .sensor-activity-container p {
+            color: #fff; /* White for paragraphs */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="wavetrace_white_logo-removebg-preview.png" alt="WaveTrace Logo" class="logo">
+            <h1 class="site-title">WaveTrace</h1>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+    </header>
+
+    <div class="content-container">
+        <div class="map-container">
+            <!-- Placeholder for the map, you can embed a map here or use a library like Leaflet -->
+        </div>
+
+        <div class="history-container">
+            <h2>Pipeline History</h2>
+            <p>Pipeline ID: 001</p>
+            <p>Installation Date: January 1, 2020</p>
+            <p>Last Inspection: July 1, 2023</p>
+            <p>Status: Operational</p>
+        </div>
+
+        <div class="leak-status-container">
+            <h2>Leak Status</h2>
+            <p>Current Pressure: <span id="pressure-value">70</span> PSI</p>
+            <p>Status: No Leaks Detected</p>
+            <div class="volume-meter">
+                <div class="volume-indicator" id="volume-indicator"></div>
+            </div>
+        </div>
+
+        <div class="sensor-activity-container">
+            <h2>Current Sensor Activity</h2>
+            <p>Sensor ID: 001</p>
+            <p>Status: Active</p>
+            <span class="blinking-light"></span>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 WaveTrace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.content-container').classList.toggle('dark-mode');
+            document.querySelector('header').classList.toggle('dark-mode');
+            document.querySelector('footer').classList.toggle('dark-mode');
+        }
+
+        // Function to simulate pressure changes and update volume meter
+        function updatePressure() {
+            const pressureValue = document.getElementById('pressure-value');
+            const volumeIndicator = document.getElementById('volume-indicator');
+            let pressure = parseFloat(pressureValue.textContent);
+            pressure = Math.max(0, Math.min(100, pressure + (Math.random() * 10 - 5))); // Simulate pressure fluctuation
+            pressureValue.textContent = pressure.toFixed(2);
+            volumeIndicator.style.width = `${pressure}%`;
+        }
+
+        // Update pressure every second
+        setInterval(updatePressure, 1000);
+    </script>
+</body>
+</html>

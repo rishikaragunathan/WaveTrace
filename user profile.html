@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaveTrace - User Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: navy;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .site-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .dark-mode-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            background-color: navy;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: bold;
+            background-image: url('default-avatar.png'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-info h2 {
+            font-size: 28px;
+            margin: 0;
+            color: navy;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            margin: 0;
+            color: #555;
+        }
+
+        .profile-details {
+            margin-top: 30px;
+        }
+
+        .profile-details h3 {
+            font-size: 22px;
+            color: navy;
+            margin-bottom: 10px;
+        }
+
+        .profile-details p {
+            font-size: 16px;
+            color: #555;
+            margin: 0 0 20px;
+        }
+
+        .update-button {
+            display: block;
+            width: 100%;
+            background-color: navy;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .update-button:hover {
+            background-color: darkblue;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: navy;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="file"] {
+            padding: 3px;
+        }
+
+        footer {
+            background-color: navy;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #ddd;
+        }
+
+        .profile-container.dark-mode {
+            background-color: #444;
+            color: #ddd;
+        }
+
+        .profile-avatar.dark-mode {
+            background-color: #555;
+        }
+
+        header.dark-mode {
+            background-color: #222;
+        }
+
+        footer.dark-mode {
+            background-color: #222;
+        }
+
+        .profile-info h2.dark-mode, .profile-details h3.dark-mode {
+            color: lightblue;
+        }
+
+        .profile-info p.dark-mode, .profile-details p.dark-mode {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="wavetrace_white_logo-removebg-preview.png" alt="WaveTrace Logo" class="logo">
+            <h1 class="site-title">WaveTrace</h1>
+        </div>
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar" id="profile-avatar"></div>
+            <div class="profile-info">
+                <h2 id="profile-name">Name: Rishika Ragunathan</h2>
+                <p id="profile-grade">Grade 11A, GIIS Whitefield</p>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <h3>Contact Information</h3>
+            <p id="profile-email">Email: rishika@example.com</p>
+            <p id="profile-phone">Phone: +91 1234567890</p>
+            <p id="profile-address">Address: 123 Main Street, Bangalore, India</p>
+
+            <h3>Account Details</h3>
+            <p id="profile-join-date">Day of Joining: January 1, 2024</p>
+            <p id="profile-last-login">Last Login: August 25, 2024</p>
+            <p id="profile-subscription">Subscription Status: Active</p>
+        </div>
+
+        <button class="update-button" onclick="openUpdateForm()">Update Profile</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 WaveTrace. All rights reserved.</p>
+    </footer>
+
+    <!-- Update Profile Form -->
+    <div id="update-form" style="display: none; max-width: 800px; margin: 40px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+        <h2>Update Profile</h2>
+        <form id="profile-update-form">
+            <div class="form-group">
+                <label for="new-pfp">Profile Picture</label>
+                <input type="file" id="new-pfp" name="new-pfp" accept="image/*" onchange="previewProfilePicture()">
+            </div>
+            <div class="form-group">
+                <label for="new-name">Name</label>
+                <input type="text" id="new-name" name="new-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="new-email">Email</label>
+                <input type="text" id="new-email" name="new-email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="new-phone">Phone Number</label>
+                <input type="text" id="new-phone" name="new-phone" placeholder="Enter your phone number">
+            </div>
+            <div class="form-group">
+                <label for="new-address">Address</label>
+                <input type="text" id="new-address" name="new-address" placeholder="Enter your address">
+            </div>
+            <button type="button" class="update-button" onclick="submitUpdateForm()">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.profile-container').classList.toggle('dark-mode');
+            document.querySelector('.profile-avatar').classList.toggle('dark-mode');
+            document.querySelector('header').classList.toggle('dark-mode');
+            document.querySelector('footer').classList.toggle('dark-mode');
+
+            const textElements = document.querySelectorAll('.profile-info h2, .profile-info p, .profile-details h3, .profile-details p');
+            textElements.forEach(element => {
+                element.classList.toggle('dark-mode');
+            });
+        }
+
+        function openUpdateForm() {
+            document.getElementById('update-form').style.display = 'block';
+        }
+
+        function previewProfilePicture() {
+            const fileInput = document.getElementById('new-pfp');
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                document.getElementById('profile-avatar').style.backgroundImage = `url(${reader.result})`;
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function submitUpdateForm() {
+            const name = document.getElementById('new-name').value;
+            const email = document.getElementById('new-email').value;
+            const phone = document.getElementById('new-phone').value;
+            const address = document.getElementById('new-address').value;
+
+            if (name) document.getElementById('profile-name').textContent = 'Name: ' + name;
+            if (email) document.getElementById('profile-email').textContent = 'Email: ' + email;
+            if (phone) document.getElementById('profile-phone').textContent = 'Phone: ' + phone;
+            if (address) document.getElementById('profile-address').textContent = 'Address: ' + address;
+
+            // Hide the update form
+            document.getElementById('update-form').style.display = 'none';
+            alert('Profile updated successfully!');
+        }
+    </script>
+</body>
+</html>
