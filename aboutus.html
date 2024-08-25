@@ -14,17 +14,11 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 0;
+            padding: 20px;
             background-color: #003366; /* Dark blue */
             color: #fff;
         }
@@ -76,6 +70,12 @@
             transform: scale(1.05);
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .vision, .mission, .team {
             display: flex;
             flex-direction: column;
@@ -86,6 +86,7 @@
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 40px; /* Add spacing below the mission section */
         }
 
         .team-member {
@@ -96,12 +97,28 @@
 
         .team-member img {
             width: 100%;
-            border-radius: 50%;
+            height: 200px; /* Square size */
+            object-fit: cover; /* Maintain aspect ratio */
+            border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .team-member h3 {
-            margin: 10px 0 0;
+            margin: 20px 0 5px; /* Space below the photo */
+            font-size: 18px;
+        }
+
+        .team-member p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .team-member h3, .dark-mode .team-member p {
+            color: #a8d1ff; /* Light blue for text in dark mode */
+        }
+
+        .dark-mode .team-member img {
+            border: 1px solid #555;
         }
     </style>
 </head>
@@ -124,28 +141,27 @@
 
         <section class="team">
             <div class="team-member box">
-                <img src="rishika.png" alt="Team Member 1">
+                <img src="rishika.png" alt="Rishika Ragunathan">
                 <h3>Rishika Ragunathan</h3>
                 <p>FOUNDER</p>
             </div>
             <div class="team-member box">
-                <img src="devayudh.png" alt="Team Member 2">
+                <img src="devayudh.jpeg" alt="Devayudh Manna">
                 <h3>Devayudh Manna</h3>
                 <p>FOUNDER</p>
             </div>
             <div class="team-member box">
-                <img src="samaa.png" alt="Team Member 3">
+                <img src="samaa.png" alt="Samaa Rijas">
                 <h3>Samaa Rijas</h3>
                 <p>FOUNDER</p>
             </div>
             <div class="team-member box">
-                <img src="arya.png" alt="Team Member 4">
+                <img src="arya.png" alt="Arya Menon">
                 <h3>Arya Menon</h3>
                 <p>FOUNDER</p>
             </div>
         </section>
     </div>
-
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
