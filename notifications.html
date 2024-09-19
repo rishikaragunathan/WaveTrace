@@ -164,7 +164,7 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="wavetrace_logo.png" alt="WaveTrace Logo" class="logo">
+            <img src="wavetrace_white_logo-removebg-preview.png" alt="WaveTrace Logo" class="logo">
             <h1 class="site-title">WaveTrace</h1>
         </div>
         <button class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
@@ -221,7 +221,7 @@
                 // Simulate sending a new notification
                 createNotification('This is a new notification after dismissing one.', 'Update');
             } else if (type === 'Reminder') {
-                alert("Viewing report...");
+                window.open('September Monthly Water Report_WaveTrace.pdf', '_blank'); // Open the PDF in a new tab
             } else if (type === 'Update') {
                 alert("Update acknowledged.");
             }
