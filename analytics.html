@@ -72,17 +72,6 @@
             margin-bottom: 20px;
         }
 
-        .chart-container::before {
-            content: "Chart Placeholder";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #333;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
         footer {
             background-color: navy;
             color: white;
@@ -109,6 +98,7 @@
             background-color: #222;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -123,23 +113,23 @@
         <div class="analytics-section">
             <h2>Water Usage Statistics</h2>
             <div class="chart-container">
-                <!-- Placeholder for water usage chart -->
+                <canvas id="waterUsageChart"></canvas>
             </div>
         </div>
 
         <div class="analytics-section">
             <h2>System Performance</h2>
             <div class="chart-container">
-                <!-- Placeholder for system performance chart -->
+                <canvas id="systemPerformanceChart"></canvas>
             </div>
         </div>
 
         <div class="analytics-section">
             <h2>Recent Activities</h2>
             <ul>
-                <li>Activity 1: Description of recent activity</li>
-                <li>Activity 2: Description of recent activity</li>
-                <li>Activity 3: Description of recent activity</li>
+                <li>Leak Detected and Fixed: On September 18, 2024, our system detected a minor leak in the downtown pipeline. The issue was promptly addressed, reducing water loss by 150 liters per day. The pipeline has been repaired, and system performance is back to optimal levels.</li>
+                <li>New Data Analytics Integration: On September 15, 2024, we integrated advanced data analytics into our system to improve water usage forecasts. This enhancement allows for more accurate predictions and better resource management, helping to optimize water distribution across the city.</li>
+                <li>System Maintenance and Upgrade: On September 10, 2024, we performed scheduled maintenance and upgraded our system software to version 2.1. The upgrade includes new features for real-time alerts and enhanced user interface improvements, ensuring a smoother and more efficient experience for all users.</li>
             </ul>
         </div>
     </div>
@@ -155,6 +145,52 @@
             document.querySelector('header').classList.toggle('dark-mode');
             document.querySelector('footer').classList.toggle('dark-mode');
         }
+
+        // Initialize Water Usage Chart
+        const waterUsageCtx = document.getElementById('waterUsageChart').getContext('2d');
+        new Chart(waterUsageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Water Usage (liters)',
+                    data: [500, 700, 600, 800],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Initialize System Performance Chart
+        const systemPerformanceCtx = document.getElementById('systemPerformanceChart').getContext('2d');
+        new Chart(systemPerformanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4'],
+                datasets: [{
+                    label: 'System Performance (%)',
+                    data: [75, 85, 80, 90],
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
